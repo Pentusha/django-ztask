@@ -4,7 +4,7 @@ from functools import wraps
 import logging
 import types
 
-def task():
+def task(function=None):
     from django_ztask.conf import settings
     try:
         from zmq import PUSH
@@ -63,4 +63,7 @@ def task():
         setattr(func, 'after', _func_after)
         return func
     
+    if function:
+        return wrapper(function)
+
     return wrapper
